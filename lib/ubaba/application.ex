@@ -6,10 +6,19 @@ defmodule Ubaba.Application do
   use Application
 
   def start(_type, _args) do
+
+    IO.puts("I am starting")
+
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: Ubaba.Worker.start_link(arg)
       # {Ubaba.Worker, arg},
+
+      Plug.Adapters.Cowboy.child_spec(
+        :http, Ubaba.Router, [], [port: Application.fetch_env!(:ubaba, :port)]
+      ),
+
+      {Ubaba.CalcServer, 0}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
