@@ -16,10 +16,11 @@ defmodule Ubaba.CalcServer do
     end
 
     def add(number) do
-      GenServer.call(__MODULE__, {:add, number})
+      GenServer.cast(__MODULE__, {:add, number})
     end
 
-    def result do
+    def result() do
+      IO.puts("I am in RESULT")
       GenServer.call(__MODULE__, :result)
     end
 
@@ -28,8 +29,14 @@ defmodule Ubaba.CalcServer do
     end
 
     def handle_cast(operation, state) do
+      IO.puts("I am starting from here....")
+
       case operation do
-        {:add, number} -> {:noreply, state + number}
+        {:add, number} ->
+          IO.puts("I am testing #{number+1} ")
+
+          is_integer(number) |> IO.puts()
+
         _ -> {:stop, "Not implemented", state}
       end
     end

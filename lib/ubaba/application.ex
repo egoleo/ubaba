@@ -9,6 +9,10 @@ defmodule Ubaba.Application do
 
     IO.puts("I am starting")
 
+    #This is from the ubaba.exs
+    Ubaba.hello()
+    |> IO.puts()
+
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: Ubaba.Worker.start_link(arg)
